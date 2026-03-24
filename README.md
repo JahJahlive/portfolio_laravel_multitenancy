@@ -1,6 +1,3 @@
-Gemini said
-Voici une version parfaitement formatée de ton README.md. Tu peux la copier-coller directement dans ton fichier. Elle utilise les standards de GitHub pour une lisibilité maximale.
-
 🚚 Logistics Master — Transport Sud-Ouest
 Logistics Master est une plateforme SaaS de gestion logistique conçue pour les entreprises de transport. Elle permet une isolation totale des données grâce à une architecture Multi-Tenant, offrant à chaque client son propre espace de travail via un sous-domaine dédié.
 
