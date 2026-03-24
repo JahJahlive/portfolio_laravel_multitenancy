@@ -1,58 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Gemini said
+Voici une version parfaitement formatée de ton README.md. Tu peux la copier-coller directement dans ton fichier. Elle utilise les standards de GitHub pour une lisibilité maximale.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+🚚 Logistics Master — Transport Sud-Ouest
+Logistics Master est une plateforme SaaS de gestion logistique conçue pour les entreprises de transport. Elle permet une isolation totale des données grâce à une architecture Multi-Tenant, offrant à chaque client son propre espace de travail via un sous-domaine dédié.
 
-## About Laravel
+🏗️ Architecture & Stack Technique
+Le projet utilise une approche Single Database Multi-Tenancy, garantissant une maintenance simplifiée et des performances optimales.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Backend : Laravel 11.x (PHP 8.3)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Multi-Tenancy : Stancl/Tenancy (Identification par domaine)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Frontend : Blade, Tailwind CSS et intégration du template Tabler
 
-## Learning Laravel
+Authentification : Laravel Breeze (Multi-tenant Ready)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Environnement : WSL2 (Ubuntu) sur Windows 11
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+🚀 Fonctionnalités (Semaine 1 : Ready)
+[x] Gestion de sous-domaines dynamiques : Isolation par URL (ex: alpha.logistics.test).
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+[x] Infrastructure Multi-Tenant : Middleware de détection automatique du client.
 
-## Agentic Development
+[x] Isolation des Modèles : Global Scoping via tenant_id sur les tables partagées.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+[x] Routes Étanches : Séparation entre le domaine central (web.php) et l'espace client (tenant.php).
 
-```bash
-composer require laravel/boost --dev
+🛠️ Installation & Configuration (WSL)
+1. Clonage et dépendances
+Bash
+git clone https://github.com/votre-username/logistics-master.git
+cd logistics-master
+composer install
+2. Environnement
+Bash
+cp .env.example .env
+php artisan key:generate
+Note : Pensez à configurer vos accès MySQL dans le .env.
 
-php artisan boost:install
-```
+3. Migrations
+Bash
+php artisan migrate
+4. Configuration Hosts (Windows)
+Pour que les sous-domaines fonctionnent en local sous WSL, ajoutez l'IP de votre instance à votre fichier hosts Windows :
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Plaintext
+# IP obtenue via 'hostname -I' dans WSL
+172.xx.xx.xx   logistics.test
+172.xx.xx.xx   alpha.logistics.test
+172.xx.xx.xx   beta.logistics.test
+🧪 Création d'un Tenant de test
+Pour tester l'isolation, créez un client via Tinker :
 
-## Contributing
+PHP
+// Lancer Tinker
+php artisan tinker
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+// Exécuter les commandes
+$tenant = App\Models\Tenant::create(['id' => 'alpha']);
+$tenant->domains()->create(['domain' => 'alpha.logistics.test']);
+Accès : http://alpha.logistics.test:8000
 
-## Code of Conduct
+📅 Roadmap de développement
+[x] Semaine 1 : Setup, Multi-Tenancy et isolation DB.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+[ ] Semaine 2 : Intégration complète de l'UI Tabler et Module Véhicules (Ford Transit, Toyota RAV4, etc.).
 
-## Security Vulnerabilities
+[ ] Semaine 3 : Gestion des expéditions et suivi en temps réel.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+[ ] Semaine 4 : Facturation, reporting et déploiement.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Développé avec passion par Yannick Kobe Mbaikwo Senior Full Stack Developer 
