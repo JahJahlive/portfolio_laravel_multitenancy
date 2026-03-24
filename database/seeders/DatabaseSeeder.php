@@ -13,13 +13,40 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
+ public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. CRÉER L'ADMINISTRATEUR DE L'AGENCE (Central)
+        // On ne lui donne pas de tenant_id (ou on le met à null)
+        \App\Models\User::firstOrCreate(
+            ['email' => 'yannick@logistics.test'], // Ton email pro
+            [
+                'name' => 'Yannick Kobe (Agence Admin)',
+                'password' => bcrypt('password'),
+                'tenant_id' => null, // Important : l'admin central n'appartient à aucun client
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-    }
+        // 2. LISTE DES TENANTS À CRÉER
+        $tenants = ['alpha', 'beta', 'ceta', 'delta'];
+
+        foreach ($tenants as $id) {
+            // Créer le client
+            $tenant = \App\Models\Tenant::firstOrCreate(['id' => $id]);
+
+            // Créer le domaine associé
+            $tenant->domains()->firstOrCreate([
+                'domain' => $id . '.logistics.test'
+            ]);
+
+            // 3. CRÉER L'ADMINISTRATEUR DU TENANT
+            \App\Models\User::firstOrCreate(
+                ['email' => "admin@{$id}.com"],
+                [
+                    'name' => "Admin " . ucfirst($id),
+                    'password' => bcrypt('password'),
+                    'tenant_id' => $tenant->id, // Lié au client spécifique
+                ]
+            );
+        }
+}
 }
