@@ -48,5 +48,37 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
-}
+
+
+        $tenants = ['alpha', 'beta'];
+
+        foreach ($tenants as $id) {
+            $tenant = \App\Models\Tenant::find($id);
+            
+            // On crée des véhicules pour chaque client
+            \App\Models\Vehicle::create([
+                'tenant_id' => $tenant->id,
+                'name' => 'Ford Transit',
+                'model' => 'Camionnette Blanche 2016',
+                'plate_number' => 'ABC-123-' . $id,
+                'status' => 'disponible',
+            ]);
+
+            \App\Models\Vehicle::create([
+                'tenant_id' => $tenant->id,
+                'name' => 'Toyota RAV4',
+                'model' => 'SUV Logistique',
+                'plate_number' => 'XYZ-789-' . $id,
+                'status' => 'en_route',
+            ]);
+            
+            \App\Models\Vehicle::create([
+                'tenant_id' => $tenant->id,
+                'name' => 'Nissan Sentra',
+                'model' => 'Berline Liaison',
+                'plate_number' => 'CAM-456-' . $id,
+                'status' => 'maintenance',
+            ]);
+        }
+    }
 }

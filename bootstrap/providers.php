@@ -5,5 +5,5 @@ use App\Providers\TenancyServiceProvider;
 
 return [
     AppServiceProvider::class,
-//    TenancyServiceProvider::class,
+   // TenancyServiceProvider::class,
 ];
