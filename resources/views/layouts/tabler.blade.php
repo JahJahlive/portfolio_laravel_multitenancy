@@ -51,7 +51,7 @@
                                 </a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('drivers.*') ? 'active' : '' }}">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('drivers.index') }}">
                                     <span class="nav-link-title">Chauffeurs</span>
                                 </a>
                             </li>
@@ -64,6 +64,24 @@
         <div class="page-wrapper">
             <div class="page-body">
                 <div class="container-xl">
+                    <div class="container-xl mt-3">
+                        {{-- Message de succès (Session) --}}
+                        @if(session('success'))
+                            <x-alert type="success" :message="session('success')" />
+                        @endif
+
+                        {{-- Erreurs de validation --}}
+                        @if($errors->any())
+                            <x-alert type="danger">
+                                <h4 class="alert-title">Erreurs de validation :</h4>
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </x-alert>
+                        @endif
+                    </div>
                     @yield('content')
                 </div>
             </div>

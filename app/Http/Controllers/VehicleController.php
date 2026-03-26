@@ -25,7 +25,7 @@ class VehicleController extends Controller
             'name' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'plate_number' => 'required|string|unique:vehicles,plate_number',
-            'status' => 'required|in:disponible,en_route,maintenance',
+            'status' => 'required|in:available,on_mission,maintenance'
         ]);
 
         \App\Models\Vehicle::create($validated);
@@ -48,7 +48,7 @@ class VehicleController extends Controller
             'name' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'plate_number' => 'required|string|unique:vehicles,plate_number,' . $vehicle->id,
-            'status' => 'required|in:disponible,en_route,maintenance',
+            'status' => 'required|in:available,on_mission,maintenance',
         ]);
 
         $vehicle->update($validated);

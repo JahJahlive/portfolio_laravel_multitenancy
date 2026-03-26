@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\DriverController;
 
 
 Route::get('/', function () { return view("welcome"); })->name('home');
@@ -17,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('vehicles', VehicleController::class);
+    Route::resource('drivers', DriverController::class);
 });
 
 require __DIR__.'/auth.php';

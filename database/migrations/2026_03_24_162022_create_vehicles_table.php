@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');      // ex: Camion Ford Transit
             $table->string('model');     // ex: Transit 2016
             $table->string('plate_number')->unique(); // Plaque d'immatriculation
-            $table->enum('status', ['disponible', 'en_route', 'maintenance'])->default('disponible');
+            $table->enum('status', ['available', 'on_mission', 'maintenance'])->default('available');
             $table->timestamps();
 
             // Indexation pour la sécurité
