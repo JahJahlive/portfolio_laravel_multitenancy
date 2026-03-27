@@ -45,6 +45,16 @@
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                         <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('dashboard_tenant') }}">
+                                    <span class="nav-link-title">Tableau de Bord</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('orders.index') }}">
+                                    <span class="nav-link-title">Commandes</span>
+                                </a>
+                            </li>
                             <li class="nav-item {{ request()->routeIs('vehicles.*') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('vehicles.index') }}">
                                     <span class="nav-link-title">Ma Flotte</span>

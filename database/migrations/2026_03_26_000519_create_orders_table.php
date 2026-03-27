@@ -13,26 +13,22 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('tenant_id')->index();
-            
-            // Informations Client
+            $table->string('tenant_id'); // Isolation multi-tenant
             $table->string('customer_name');
-            $table->string('customer_phone');
+            $table->string('origin_address');
+            $table->string('destination_address');
+            $table->dateTime('pickup_time');
             
-            // Logistique
-            $table->dateTime('scheduled_at'); // Date et heure du déménagement
-            $table->text('pickup_address');
-            $table->text('delivery_address');
+            // Relations avec nos Enums et modèles stabilisés
+            $table->foreignId('vehicle_id')->nullable()->constrained();
+            $table->foreignId('driver_id')->nullable()->constrained();
             
-            // Liens opérationnels (Optionnels au début)
-            $table->foreignId('driver_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('vehicle_id')->nullable()->constrained()->onDelete('set null');
-            
-            // État et Finance
-            $table->enum('status', ['pending', 'assigned', 'in_progress', 'completed', 'cancelled'])->default('pending');
-            $table->decimal('price', 10, 2)->nullable(); // Pour la facturation à la prestation
-            
+            // Statut de la commande (Nouveau Enum à créer : pending, assigned, completed, cancelled)
+            $table->string('status')->default('pending');
+            $table->decimal('price', 10, 2)->nullable();
             $table->timestamps();
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
         });
     }
 
